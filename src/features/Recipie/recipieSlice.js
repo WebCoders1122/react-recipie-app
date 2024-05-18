@@ -19,7 +19,11 @@ export const fetchRecipiesAsync = createAsyncThunk(
 export const recipieSlice = createSlice({
   name: "recipie",
   initialState,
-  reducers: {},
+  reducers: {
+    setDarkMode: (state, action) => {
+      state.darkMode = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchRecipiesAsync.pending, (state) => {
@@ -32,6 +36,6 @@ export const recipieSlice = createSlice({
   },
 });
 
-// export const { increment, decrement, incrementByAmount } = recipieSlice.actions;
+export const { setDarkMode } = recipieSlice.actions;
 
 export default recipieSlice.reducer;
