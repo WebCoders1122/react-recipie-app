@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import SearchWithButton from "./Reusable Components/SearchWithButton";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import "flowbite";
+import { initFlowbite } from "flowbite";
 
 const Navbar = () => {
   //to expand or collaps mobile menu
@@ -9,6 +12,21 @@ const Navbar = () => {
   const handleExpand = () => {
     setExpand(!expand);
   };
+
+  // to handle darkmode
+  const darkMode = useSelector((state) => state.recipie.darkMode);
+  const handleDarkMode = () => {
+    darkMode == true ||
+    (darkMode == null &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark");
+  };
+
+  useEffect(() => {
+    initFlowbite();
+  }, []);
+
   return (
     // main container of recipie app
     <div>
@@ -71,6 +89,18 @@ const Navbar = () => {
                   Home
                 </NavLink>
               </li>
+              <NavLink
+                to='favorites'
+                className={(isActive) => {
+                  return `block py-2 px-3  rounded hover:bg-grey-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-700 md:p-0 ${
+                    isActive.isActive
+                      ? "text-purple-700 dark:text-red-500"
+                      : "text-grey-900 dark:text-white"
+                  } md:dark:hover:text-red-500 dark:hover:bg-grey-700 dark:hover:text-white md:dark:hover:bg-transparent`;
+                }}
+                aria-current='page'>
+                Favorites
+              </NavLink>
             </ul>
           </div>
         </div>

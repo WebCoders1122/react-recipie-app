@@ -16,6 +16,7 @@ import {
 // elements or components to be used in router
 import Layout from "./components/Layout";
 import RecipieApp from "./features/Recipie/RecipieApp";
+import Favorite from "./pages/Favorite";
 
 const Index = () => {
   const router = createBrowserRouter(
@@ -27,6 +28,10 @@ const Index = () => {
         <Route
           path=''
           element={<RecipieApp />}
+        />
+        <Route
+          path='favorites'
+          element={<Favorite />}
         />
       </Route>
     )

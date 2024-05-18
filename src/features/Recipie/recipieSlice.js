@@ -5,6 +5,7 @@ import { fetchRecipies } from "./recipieAPI";
 const initialState = {
   recipies: [],
   loading: false,
+  darkMode: null,
 };
 
 export const fetchRecipiesAsync = createAsyncThunk(
