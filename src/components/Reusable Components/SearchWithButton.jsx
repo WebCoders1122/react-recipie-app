@@ -2,14 +2,19 @@ import React, { useState } from "react";
 
 //react icons
 import { CiSearch } from "react-icons/ci";
+import { useDispatch } from "react-redux";
+import {
+  fetchRecipesAsync,
+  setSearch,
+} from "../../features/Recipe/recipeSlice";
 
-const SearchWithButton = ({ children, dispatch, setNewSearch }) => {
+const SearchWithButton = ({ children }) => {
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const handleSearch = (value) => {
-    console.log(value, value == "");
     // if (value == "") return alert("Please Enter City Name to Search...");
-    dispatch(setNewSearch(value));
-    setInputValue("");
+    dispatch(fetchRecipesAsync(value));
+    // setInputValue("");
   };
   return (
     <form
@@ -29,7 +34,7 @@ const SearchWithButton = ({ children, dispatch, setNewSearch }) => {
         <input
           type='search'
           id='default-search'
-          className='block w-full p-4 mr-5 ps-10 text-sm text-gray-900 border border-gray-100 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500'
+          className='block w-full p-4 mr-5 ps-10 text-sm text-gray-900 border rounded-lg bg-gray-50 ring-gray-300 border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500'
           placeholder={children}
           required=''
           value={inputValue}

@@ -15,7 +15,7 @@ import {
 
 // elements or components to be used in router
 import Layout from "./components/Layout";
-import RecipieApp from "./features/Recipie/RecipieApp";
+import RecipeApp from "./features/Recipe/RecipeApp";
 import Favorite from "./pages/Favorite";
 
 const Index = () => {
@@ -27,7 +27,7 @@ const Index = () => {
         element={<Layout />}>
         <Route
           path=''
-          element={<RecipieApp />}
+          element={<RecipeApp />}
         />
         <Route
           path='favorites'

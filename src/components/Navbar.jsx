@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import "flowbite";
 import { initFlowbite } from "flowbite";
 import { CiDark, CiLight } from "react-icons/ci";
-import { setDarkMode } from "../features/Recipie/recipieSlice";
+import { fetchRecipesAsync, setDarkMode } from "../features/Recipe/recipeSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const search = useSelector((state) => state.recipe.search);
   //to expand or collaps mobile menu
   const [expand, setExpand] = useState(false);
   const handleExpand = () => {
@@ -17,7 +18,7 @@ const Navbar = () => {
   };
 
   // to handle darkmode
-  const darkMode = useSelector((state) => state.recipie.darkMode);
+  const darkMode = useSelector((state) => state.recipe.darkMode);
   const handleDarkMode = () => {
     darkMode == true ||
     (darkMode == null &&
@@ -25,25 +26,24 @@ const Navbar = () => {
       ? document.documentElement.classList.add("dark")
       : document.documentElement.classList.remove("dark");
   };
-  console.log(darkMode);
   useEffect(() => {
     initFlowbite();
     handleDarkMode();
   }, [darkMode]);
 
   return (
-    // main container of recipie app
+    // main container of recipe app
     <div>
       <nav className='bg-gray-100 border-gray-200 dark:bg-gray-900'>
         <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
           {/* logo of navbar */}
           <span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'>
-            React Recipie App
+            React Recipe App
           </span>
           {/* search for large screens and mobile menu button */}
           <div className='flex md:order-2'>
             <div className='relative mt-3 hidden md:flex md:justify-center md:items-center md:gap-2'>
-              <SearchWithButton>Enter Your Recipie Here...</SearchWithButton>
+              <SearchWithButton>Enter Your Recipe Here...</SearchWithButton>
               <div className=''>
                 {/* dark mode toggler */}
                 {darkMode == true ||
@@ -57,7 +57,7 @@ const Navbar = () => {
                   </button>
                 ) : (
                   <button
-                    className='text-3xl shadow bg-gray-50 hover:bg-gray-100 rounded-md p-2.5 hover:dark:bg-gray-700 dark:text-white ease-linear duration-200'
+                    className='text-3xl shadow bg-gray-50 hover:bg-gray-200 rounded-md p-2.5 hover:dark:bg-gray-700 dark:text-white ease-linear duration-200'
                     onClick={() => dispatch(setDarkMode(true))}>
                     <CiDark />
                     {/* <CiLight /> */}
@@ -99,12 +99,12 @@ const Navbar = () => {
             <div className='relative mt-3 md:hidden'>
               <SearchWithButton>Search Your Recipe Here...</SearchWithButton>
             </div>
-            <ul className='flex flex-col md:justify-center md:items-center justify-center font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
+            <ul className='flex flex-col md:justify-center md:items-center justify-center font-medium p-4 md:p-0 mt-4 rounded-lg bg-transparent md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
               <li>
                 <NavLink
                   to='/'
                   className={(isActive) => {
-                    return `block py-2 px-3  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ${
+                    return `block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ${
                       isActive.isActive
                         ? "text-blue-700 dark:text-red-500"
                         : "text-gray-900 dark:text-white"
