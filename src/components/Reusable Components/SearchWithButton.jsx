@@ -7,14 +7,18 @@ import {
   fetchRecipesAsync,
   setSearch,
 } from "../../features/Recipe/recipeSlice";
+import { useNavigate } from "react-router-dom";
 
 const SearchWithButton = ({ children }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
   const handleSearch = (value) => {
     // if (value == "") return alert("Please Enter City Name to Search...");
     dispatch(fetchRecipesAsync(value));
+    dispatch(setSearch(inputValue));
     setInputValue("");
+    navigate("/");
   };
   return (
     <form

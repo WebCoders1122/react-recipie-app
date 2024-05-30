@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Ingredients from "./Ingredients";
+import { useSelector } from "react-redux";
 
 const RecipeDetails = () => {
   const [recipe, setRecipe] = useState({});
   const { id } = useParams();
-  console.log(id);
   const fetchRecipe = async () => {
     const response = await fetch(
       `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
@@ -13,7 +13,7 @@ const RecipeDetails = () => {
     const data = await response.json();
     setRecipe(data.data.recipe);
   };
-  console.log(recipe);
+  // console.log(recipe);
   useEffect(() => {
     fetchRecipe();
   }, [id]);
@@ -30,18 +30,20 @@ const RecipeDetails = () => {
         </div>
         <div className='lg:col-span-2'>
           {/* title */}
-          <h2 className='text-2xl font-extrabold text-gray-800'>
+          <h2 className='text-2xl font-extrabold text-gray-800 dark:text-gray-100'>
             {recipe.title}
           </h2>
           {/* publisher */}
-          <p className='text-gray-400 text-lg mt-2 flex justify-around'>
+          <p className='text-gray-400 text-lg mt-2 flex justify-around dark:text-gray-500'>
             <span className=''>{recipe.publisher}</span>
             <span className=''>Cooking Time: {recipe.cooking_time}</span>
             <span className=''>Servings: {recipe.servings}</span>
           </p>
           <div className='mt-3'>
-            <h3 className='text-xl font-bold text-gray-800'>Ingredients </h3>
-            <ul className='space-y-2 list-decimal mt-2 pl-4 text-sm text-gray-800'>
+            <h3 className='text-xl font-bold text-gray-800 dark:text-gray-200'>
+              Ingredients{" "}
+            </h3>
+            <ul className='space-y-2 list-decimal mt-2 pl-4 text-sm'>
               {recipe?.ingredients?.map((ing, index) => (
                 <Ingredients
                   key={`ing-${index}`}
@@ -51,7 +53,7 @@ const RecipeDetails = () => {
             </ul>
             <button
               type='button'
-              class='focus:outline-none mt-4 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 rounded-lg text-sm font-semibold px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900'>
+              className='focus:outline-none mt-4 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 rounded-lg text-sm font-semibold px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900'>
               Add To Favorites
             </button>
           </div>

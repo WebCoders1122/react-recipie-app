@@ -7,6 +7,7 @@ const initialState = {
   loading: false,
   darkMode: null,
   error: null,
+  search: null,
 };
 
 export const fetchRecipesAsync = createAsyncThunk(
@@ -26,6 +27,7 @@ export const recipeSlice = createSlice({
       state.darkMode = action.payload;
     },
     setSearch: (state, action) => {
+      console.log(action.payload);
       state.search = action.payload;
     },
   },
