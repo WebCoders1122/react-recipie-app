@@ -14,7 +14,7 @@ const SearchWithButton = ({ children }) => {
   const handleSearch = (value) => {
     // if (value == "") return alert("Please Enter City Name to Search...");
     dispatch(fetchRecipesAsync(value));
-    // setInputValue("");
+    setInputValue("");
   };
   return (
     <form
@@ -39,7 +39,7 @@ const SearchWithButton = ({ children }) => {
           required=''
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onKeyPress={(event) => {
+          onKeyDown={(event) => {
             if (event.key === "Enter") {
               if (inputValue == "")
                 return alert("Please Enter City Name to Search...");

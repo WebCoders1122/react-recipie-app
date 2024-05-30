@@ -1,6 +1,8 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const RecipeCard = ({ recipe }) => {
+  const navigate = useNavigate();
   return (
     <div className='w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-5'>
       <img
@@ -19,9 +21,11 @@ const RecipeCard = ({ recipe }) => {
           <span className='text-lg font-bold text-purple-400 dark:text-gray-500'>
             {recipe.publisher}
           </span>
-          <button className='text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800'>
+          <Link
+            to={`recipe/${recipe.id}`}
+            className='text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'>
             Full Recipe ...
-          </button>
+          </Link>
         </div>
       </div>
     </div>

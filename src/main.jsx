@@ -17,6 +17,7 @@ import {
 import Layout from "./components/Layout";
 import RecipeApp from "./features/Recipe/RecipeApp";
 import Favorite from "./pages/Favorite";
+import RecipieDetails from "./components/Reusable Components/RecipeDetails";
 
 const Index = () => {
   const router = createBrowserRouter(
@@ -32,6 +33,10 @@ const Index = () => {
         <Route
           path='favorites'
           element={<Favorite />}
+        />
+        <Route
+          path='recipe/:id'
+          element={<RecipieDetails />}
         />
       </Route>
     )

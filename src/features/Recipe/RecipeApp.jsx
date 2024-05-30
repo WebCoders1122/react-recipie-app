@@ -7,18 +7,23 @@ import Loading from "../../components/Reusable Components/Loading";
 const RecipeApp = () => {
   const recipes = useSelector((state) => state.recipe.recipes);
   const loading = useSelector((state) => state.recipe.loading);
-  console.log(recipes);
   return (
     <div className='flex justify-center items-center flex-wrap'>
       {loading ? (
         <Loading />
-      ) : recipes != [] && recipes.length ? (
+      ) : recipes != null && recipes.length ? (
         recipes.map((recipe) => (
           <RecipeCard
             key={recipe.id}
             recipe={recipe}
           />
         ))
+      ) : recipes == "[]" ? (
+        <div className='flex flex-col items-center m-5 text-center mt-40'>
+          <h1 className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white'>
+            No Recipe Found... Please Try Again!
+          </h1>
+        </div>
       ) : (
         <div className='flex flex-col items-center m-5 text-center mt-40'>
           <h1 className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white'>

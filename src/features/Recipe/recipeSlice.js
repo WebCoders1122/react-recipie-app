@@ -3,9 +3,10 @@ import { fetchRecipes } from "./recipeAPI";
 
 //this is initial state
 const initialState = {
-  recipes: [],
+  recipes: null,
   loading: false,
   darkMode: null,
+  error: null,
 };
 
 export const fetchRecipesAsync = createAsyncThunk(
@@ -13,7 +14,7 @@ export const fetchRecipesAsync = createAsyncThunk(
   async (searchValue) => {
     if (searchValue == "") return;
     const response = await fetchRecipes(searchValue);
-    return await response.json();
+    return response.json();
   }
 );
 
@@ -35,8 +36,14 @@ export const recipeSlice = createSlice({
       })
       .addCase(fetchRecipesAsync.fulfilled, (state, action) => {
         state.loading = false;
-        state.recipes = action.payload.data.recipes;
-        console.log(action.payload.data.recipes);
+        action.payload.data
+          ? (state.recipes = action.payload.data.recipes)
+          : null;
+      })
+      .addCase(fetchRecipesAsync.rejected, (state, error) => {
+        state.loading = false;
+        state.error = error;
+        console.log(error);
       });
   },
 });
