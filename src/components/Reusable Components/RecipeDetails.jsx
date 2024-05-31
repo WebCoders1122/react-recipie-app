@@ -22,7 +22,7 @@ const RecipeDetails = () => {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.recipe.favorites);
   const recipes = useSelector((state) => state.recipe.recipes);
-  const favoriteIndex = recipes.findIndex((recipe) => recipe.id == id);
+  const favoriteIndex = favorites.findIndex((recipe) => recipe.id == id);
   const handleFavorites = () => {
     const recipeIndex = recipes.findIndex((recipe) => recipe.id == id);
     if (favorites.findIndex((recipe) => recipe.id == id) == -1) {
@@ -71,8 +71,8 @@ const RecipeDetails = () => {
               onMouseDown={handleFavorites}
               className='focus:outline-none mt-4 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 rounded-lg text-sm font-semibold px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
               {favoriteIndex != -1
-                ? "Add to Favorites"
-                : "Remove from Favorites"}
+                ? "Remove from Favorites"
+                : "Add to Favorites"}
             </button>
           </div>
         </div>
