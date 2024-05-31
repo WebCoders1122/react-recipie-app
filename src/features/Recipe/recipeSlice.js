@@ -3,11 +3,12 @@ import { fetchRecipes } from "./recipeAPI";
 
 //this is initial state
 const initialState = {
-  recipes: null,
+  recipes: [],
   loading: false,
   darkMode: null,
   error: null,
   search: null,
+  favorites: [],
 };
 
 export const fetchRecipesAsync = createAsyncThunk(
@@ -27,8 +28,16 @@ export const recipeSlice = createSlice({
       state.darkMode = action.payload;
     },
     setSearch: (state, action) => {
-      console.log(action.payload);
       state.search = action.payload;
+    },
+    addFavorite: (state, action) => {
+      state.favorites.push(action.payload);
+      console.log("add", action.payload, state.favorites);
+    },
+    removeFavorite: (state, action) => {
+      console.log("remove", action.payload);
+
+      state.favorites.splice(action.payload, 1);
     },
   },
   extraReducers: (builder) => {
@@ -50,6 +59,7 @@ export const recipeSlice = createSlice({
   },
 });
 
-export const { setDarkMode, setSearch } = recipeSlice.actions;
+export const { setDarkMode, setSearch, addFavorite, removeFavorite } =
+  recipeSlice.actions;
 
 export default recipeSlice.reducer;

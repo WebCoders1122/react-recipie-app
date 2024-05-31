@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Ingredients from "./Ingredients";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite, removeFavorite } from "../../features/Recipe/recipeSlice";
 
 const RecipeDetails = () => {
   const [recipe, setRecipe] = useState({});
@@ -17,6 +18,20 @@ const RecipeDetails = () => {
   useEffect(() => {
     fetchRecipe();
   }, [id]);
+  //favorites code
+  const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.recipe.favorites);
+  const recipes = useSelector((state) => state.recipe.recipes);
+  const favoriteIndex = recipes.findIndex((recipe) => recipe.id == id);
+  const handleFavorites = () => {
+    const recipeIndex = recipes.findIndex((recipe) => recipe.id == id);
+    if (favorites.findIndex((recipe) => recipe.id == id) == -1) {
+      dispatch(addFavorite(recipes[recipeIndex]));
+    } else {
+      dispatch(removeFavorite(favoriteIndex));
+    }
+  };
+  console.log(favoriteIndex, favorites);
   return (
     <div className='font-sans p-6 lg:max-w-7xl max-w-2xl max-lg:mx-auto'>
       <div className='grid items-start grid-cols-1 lg:grid-cols-5 gap-12'>
@@ -53,8 +68,11 @@ const RecipeDetails = () => {
             </ul>
             <button
               type='button'
-              className='focus:outline-none mt-4 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 rounded-lg text-sm font-semibold px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900'>
-              Add To Favorites
+              onMouseDown={handleFavorites}
+              className='focus:outline-none mt-4 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 rounded-lg text-sm font-semibold px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+              {favoriteIndex != -1
+                ? "Add to Favorites"
+                : "Remove from Favorites"}
             </button>
           </div>
         </div>

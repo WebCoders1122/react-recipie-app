@@ -22,7 +22,7 @@ const RecipeCard = ({ recipe }) => {
             {recipe.publisher}
           </span>
           <Link
-            to={`recipe/${recipe.id}`}
+            to={`/recipe/${recipe.id}`}
             className='text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'>
             Full Recipe ...
           </Link>
